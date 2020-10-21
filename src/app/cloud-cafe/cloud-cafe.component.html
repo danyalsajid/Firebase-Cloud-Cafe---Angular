@@ -1,0 +1,91 @@
+<div *ngIf="!showLogin && !showSignup">
+
+    <div class="w-100 bg-dark d-flex justify-content-end py-3">
+        <button
+            *ngIf="!loggedIn"
+            class="btn btn-secondary"
+            (click)="showLogin = !showLogin"
+        >
+            Log In
+        </button>
+        <button
+            *ngIf="!loggedIn"
+            class="btn btn-secondary mx-4"
+            (click)="showSignup = !showSignup"
+        >
+            Sign Up
+        </button>
+
+        <button
+            *ngIf="loggedIn"
+            class="btn btn-secondary mx-4"
+            (click)="logOut()"
+        >
+            Log Out
+        </button>
+    </div>
+    <div *ngIf="loggedIn">
+        <h1 class="text-center my-3">Cloud Caffe</h1>
+
+        <div class="container bg-white mx-5 p-5 rounded mx-auto">
+            <div class="d-flex justify-content-between shadow-sm p-5 rounded border">
+                <div class="w-75 d-flex justify-content-between">
+                    <input
+                        [formControl]="cafeNameController"
+                        class="form-control mr-3"
+                        type="text"
+                        placeholder="Cafe Name"
+                    >
+                    <input
+                        [formControl]="cafeCityController"
+                        class="form-control"
+                        type="text"
+                        placeholder="Cafe City"
+                    >
+                </div>
+
+                <button
+                    class="btn btn-primary"
+                    (click)="addCafe()"
+                >
+                    Add Cafe
+                </button>
+            </div>
+
+            <br>
+            <br>
+            <ul class="list-group list-group-flush border rounded">
+                <li
+                    *ngFor="let cafe of cafeData"
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                    <div class="details w-75">
+                        <p class="font-weight-bold">{{cafe.name}}</p>
+                        <p class="font-italic">{{cafe.city}}</p>
+                    </div>
+                    <div class="delete w-25 text-center">
+                        <span
+                            class="text-danger font-weight-bold"
+                            style="cursor: pointer;"
+                            (click)="deleteCafe(cafe.id)"
+                        >
+                            X
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div *ngIf="!loggedIn && !showLogin && !showSignup">
+    <h2 class="text-secondary mt-5 pt-5 text-center">Please login to view</h2>
+</div>
+
+<app-login
+    *ngIf="showLogin"
+    (cancelEvent)="showLogin = false; showSignup = false"
+></app-login>
+<app-signup
+    *ngIf="showSignup"
+    (cancelEvent)="showSignup = false; showLogin = false"
+></app-signup>

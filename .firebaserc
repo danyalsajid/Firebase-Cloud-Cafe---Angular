@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-crud-e4b8d": {
+      "hosting": {
+        "test": [
+          "angular-crud-e4b8d"
+        ]
+      }
+    }
+  }
+}
